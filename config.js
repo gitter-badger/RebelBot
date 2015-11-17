@@ -3,7 +3,7 @@ var config = {};
 config.beam = {};
 config.steam = {};
 
-//BEAM SHIT
+// BEAM STUFF
 config.beam.user = "youruser";
 config.beam.pass = "yourpass";
 config.beam.chatID = "id of channel you want to join";
