@@ -1,12 +1,14 @@
 var promise = require('bluebird')
-var BeamSocket = require('./beam/ws');
+var BeamSocket = require('./node/beam/ws');
 var request = require('request');
-var config = require('./config');
 var _ = require("lodash");
 var sqlite = require("sqlite3").verbose();
-var urban = require('./apis/urban');
+var urban = require('./node/apis/urban');
+var gui = require('nw.gui');
 
-var db = new sqlite.Database('db.sqlite3');
+var db = new sqlite.Database(gui.App.dataPath + '/db.sqlite3');
+var config = require('./node/config');
+console.log("[TESTINGSHIT]: " + gui.App.dataPath);
 
 var auth;
 var endpoints = null;
@@ -53,7 +55,7 @@ function getChatJoin(channelID, userID) {
                         }
                     });
                     if (text.indexOf("!") == 0) {
-                        // Should probably clean this up later.
+                        // REALLY HACKY SHIT, WILL FIX LATER
                         var cText = text.replace('!addcom ', '');
                         var spltText = cText.split(' ');
                         var tiText = spltText.shift();
@@ -94,6 +96,9 @@ function getChatJoin(channelID, userID) {
                                 var tiText2 = "!" + tiText;
                                 addCom(channelID, tiText2, allTheText);
                             }
+
+
+
                             console.log("[TEST]: " + tiText);
                             console.log("[TEST]: " + allTheText);
                         }
@@ -113,7 +118,7 @@ function getChatJoin(channelID, userID) {
                             });
                         }
 
-                        // Deletes a quote from the DB
+                        // Deleted a quote from the DB
                         if (text.indexOf("!delquote") == 0 && roles.indexOf("Owner") >= 0 || roles.indexOf("Mod") >=0) {
                             delQuote(channelID, qdAllTheText);
                         }
@@ -159,7 +164,6 @@ function getChatJoin(channelID, userID) {
         });
 }
 
-// Bans a user. Not complete.
 function banUser(username, chatID, uID) {
     request({
         method: "PATCH",
@@ -177,8 +181,8 @@ function banUser(username, chatID, uID) {
         );
 }
 
-// Sends a message to the chat server.
 function sendMsg(msg) {
+    var msgID = msgID++;
     socket.call('msg', [msg]).then(function () {
         console.log('[sendMsg]: ' + msg);
     }).catch(function (err) {
@@ -186,7 +190,6 @@ function sendMsg(msg) {
     });
 }
 
-// Adds a quote to the DB.
 function addQuote(chanID, txt) {
     db.serialize(function() {
         db.run("INSERT INTO 'quotes' VALUES(null, ?, ?)", [txt, chanID], function(err){
@@ -196,7 +199,6 @@ function addQuote(chanID, txt) {
     });
 }
 
-// Deletes a quote from the DB.
 function delQuote(chanID, qID) {
     db.serialize(function(){
         db.run("DELETE FROM 'quotes' WHERE ID = ? AND chan = ?", [qID, chanID]);
@@ -204,7 +206,6 @@ function delQuote(chanID, qID) {
     });
 }
 
-// Deletes a command form the DB.
 function delCom(chanID, com) {
     db.serialize(function(){
         db.run("DELETE FROM 'commands' WHERE chanid = ? AND name = ?", [chanID, com]);
@@ -212,7 +213,6 @@ function delCom(chanID, com) {
     });
 }
 
-// Adds a command to the DB.
 function addCom(chanID, com, res) {
     db.serialize(function () {
         db.run("INSERT INTO 'commands' VALUES(?, ?, ?)", [chanID, com, res]);
@@ -220,7 +220,6 @@ function addCom(chanID, com, res) {
     });
 }
 
-// Logs bot into beam.
 function loginBot(username, password) {
     request({
         method: "POST",
@@ -237,11 +236,26 @@ function loginBot(username, password) {
         });
 }
 
-// uncaughtException handler. Probably will be replaced.
+function logoutBot() {
+    if(socket.isConnected) {
+        socket.close();
+        console.log("[logoutBot]: Bot is now disconnected!");
+    } else {
+        console.log("[logoutBot]: Bot isn't connected!");
+    }
+}
+
+function restartBot(username, password) {
+    if(socket.isConnected) {
+        logoutBot();
+        loginBot(username, password);
+    }
+}
+
 process.on('uncaughtException', function(err) {
   console.log('Caught exception: ' + err);
 });
 
 
-loginBot(config.beam.user, config.beam.pass);
+// loginBot(config.beam.user, config.beam.pass);
 // console.log(data);

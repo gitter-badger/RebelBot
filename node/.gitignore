@@ -1,0 +1,13 @@
+# https://git-scm.com/docs/gitignore
+# https://help.github.com/articles/ignoring-files
+# Example .gitignore files: https://github.com/github/gitignore
+/bower_components/
+/node_modules/
+/typings/request/request.d.ts
+/typings/bluebird/bluebird.d.ts
+/typings/node/node.d.ts
+/typings/lodash/lodash.d.ts
+/typings/form-data/form-data.d.ts
+*.sqlite3
+/db.sqlite3
+/config.js
