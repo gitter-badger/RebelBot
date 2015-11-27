@@ -56,40 +56,36 @@ function getChatJoin(channelID, userID) {
                     });
                     if (text.indexOf("!") == 0) {
                         // REALLY HACKY SHIT, WILL FIX LATER
-                        var cText = text.replace('!addcom ', '');
-                        var spltText = cText.split(' ');
-                        var tiText = spltText.shift();
-                        var comText = spltText.toString();
-                        var allTheText = comText.replace(/,/g, ' ');
 
-                        var dText = text.replace('!delcom ', '');
-                        var dSpltText = cText.split(' ');
-                        var dTiText = spltText.shift();
-                        var dComText = spltText.toString();
-                        var dAllTheText = comText.replace(/,/g, ' ');
 
-                        var urText = text.replace('!urban ', '');
 
-                        var qText = text.replace('!quote ', '');
-                        var qSpltText = qText.split(' ');
-                        var qTiText = qSpltText.shift();
-                        var qComText = qSpltText.toString();
-                        var qAllTheText = qComText.replace(/,/g, ' ');
 
-                        var qaText = text.replace('!addquote ', '');
-                        var qaSpltText = qaText.split(' ');
-                        var qaTiText = qaSpltText.shift();
-                        var qaComText = qaSpltText.toString();
-                        var qaAllTheText = qaComText.replace(/,/g, ' ');
 
-                        var qdText = text.replace('!delquote ', '');
-                        var qdSpltText = qdText.split(' ');
-                        var qdTiText = qdSpltText.shift();
-                        var qdComText = qdSpltText.toString();
-                        var qdAllTheText = qdComText.replace(/,/g, ' ');
+                        // Urban command
+                        if (text.indexOf("!urban") == 0) {
+                            var urText = text.replace('!urban ', '');
+                            urC.getTerm({ term: urText }, function(err, def){
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    sendMsg(def);
+                                }
+                            });
+                        }
+
+                        if (text.indexOf("!ping") == 0) {
+                            var dateTime = new Date();
+                            sendMsg("Pong sent at " + dateTime);
+                        }
 
                         // Adds a Command to the DB
                         if (text.indexOf("!addcom") == 0 && roles.indexOf("Owner") >= 0 || roles.indexOf("Mod") >= 0) {
+                            var cText = text.replace('!addcom ', '');
+                            var spltText = cText.split(' ');
+                            var tiText = spltText.shift();
+                            var comText = spltText.toString();
+                            var allTheText = comText.replace(/,/g, ' ');
+
                             if (tiText.indexOf("!") == 0) {
                                 addCom(channelID, tiText, allTheText);
                             } else {
@@ -102,27 +98,34 @@ function getChatJoin(channelID, userID) {
                         }
 
                         if (text.indexOf("!delcom") == 0 && roles.indexOf("Owner") >= 0 || roles.indexOf("Mod") >= 0) {
-                            delCom(channelID, dText);
-                        }
+                            var dText = text.replace('!delcom ', '');
+                            var dSpltText = cText.split(' ');
+                            var dTiText = spltText.shift();
+                            var dComText = spltText.toString();
+                            var dAllTheText = comText.replace(/,/g, ' ');
 
-                        // Urban command
-                        if (text.indexOf("!urban") == 0) {
-                            urC.getTerm({ term: urText }, function(err, def){
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    sendMsg(def);
-                                }
-                            });
+                            delCom(channelID, dText);
                         }
 
                         // Deleted a quote from the DB
                         if (text.indexOf("!delquote") == 0 && roles.indexOf("Owner") >= 0 || roles.indexOf("Mod") >=0) {
+                            var qdText = text.replace('!delquote ', '');
+                            var qdSpltText = qdText.split(' ');
+                            var qdTiText = qdSpltText.shift();
+                            var qdComText = qdSpltText.toString();
+                            var qdAllTheText = qdComText.replace(/,/g, ' ');
+
                             delQuote(channelID, qdAllTheText);
                         }
 
                         // Adds a quote to the DB
                         if (text.indexOf("!addquote") == 0 && roles.indexOf("Owner") >= 0 || roles.indexOf("Mod") >= 0) {
+                            var qaText = text.replace('!addquote ', '');
+                            var qaSpltText = qaText.split(' ');
+                            var qaTiText = qaSpltText.shift();
+                            var qaComText = qaSpltText.toString();
+                            var qaAllTheText = qaComText.replace(/,/g, ' ');
+
                             console.log(qaTiText);
 
                             addQuote(channelID, qaTiText);
@@ -130,6 +133,12 @@ function getChatJoin(channelID, userID) {
 
                         // Grabs a quote from DB
                         if (text.indexOf("!quote") == 0) {
+                            var qText = text.replace('!quote ', '');
+                            var qSpltText = qText.split(' ');
+                            var qTiText = qSpltText.shift();
+                            var qComText = qSpltText.toString();
+                            var qAllTheText = qComText.replace(/,/g, ' ');
+
                             console.log(qText);
                             db.get("SELECT res FROM quotes WHERE ID = ? AND chan = ?", [qText, channelID], function(err, row){
                                 if(err){
@@ -142,7 +151,8 @@ function getChatJoin(channelID, userID) {
                         }
 
                         // Gets Command from the DB
-                        if (text.indexOf("!addcom") != 0 && text.indexOf("!urban") != 0 && text.indexOf("!addquote") != 0 && text.indexOf("!quote") != 0 && text.indexOf("!delcom") != 0 && text.indexOf("!delquote") != 0) {
+                        if (text.indexOf("!addcom") != 0 && text.indexOf("!urban") != 0 && text.indexOf("!addquote") != 0 && text.indexOf("!quote") != 0 && text.indexOf("!delcom") != 0 && text.indexOf("!delquote") != 0 &&
+                        text.indexOf("!ping") != 0) {
                             db.get("SELECT response FROM commands WHERE chanID = ? AND name = ?", [channelID, text], function (err, row) {
                                 if (err || row == undefined) {
                                     console.log(err)

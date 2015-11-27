@@ -5,10 +5,8 @@ Rebelbot is a beam.pro bot made in Node.js and will have a UI with NW.js soon(TM
 To install in it's current state do the following:
 ```
 git clone https://github.com/ripbandit/RebelBot.git
-cd rebelbot
-npm install
-edit config.js with your username and stuff.
-node index.js
+Download NW.JS
+drag the RebelBot folder to the NW.JS executable.
 ```
 
 # Features
