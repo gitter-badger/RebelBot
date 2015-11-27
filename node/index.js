@@ -55,12 +55,6 @@ function getChatJoin(channelID, userID) {
                         }
                     });
                     if (text.indexOf("!") == 0) {
-                        // REALLY HACKY SHIT, WILL FIX LATER
-
-
-
-
-
                         // Urban command
                         if (text.indexOf("!urban") == 0) {
                             var urText = text.replace('!urban ', '');
@@ -79,7 +73,7 @@ function getChatJoin(channelID, userID) {
                         }
 
                         // Adds a Command to the DB
-                        if (text.indexOf("!addcom") == 0 && roles.indexOf("Owner") >= 0 || roles.indexOf("Mod") >= 0) {
+                        if (text.indexOf("!addcom") == 0 && isMod(roles)) {
                             var cText = text.replace('!addcom ', '');
                             var spltText = cText.split(' ');
                             var tiText = spltText.shift();
@@ -97,7 +91,7 @@ function getChatJoin(channelID, userID) {
                             console.log("[TEST]: " + allTheText);
                         }
 
-                        if (text.indexOf("!delcom") == 0 && roles.indexOf("Owner") >= 0 || roles.indexOf("Mod") >= 0) {
+                        if (text.indexOf("!delcom") == 0 && isMod(roles)) {
                             var dText = text.replace('!delcom ', '');
                             var dSpltText = cText.split(' ');
                             var dTiText = spltText.shift();
@@ -108,7 +102,7 @@ function getChatJoin(channelID, userID) {
                         }
 
                         // Deleted a quote from the DB
-                        if (text.indexOf("!delquote") == 0 && roles.indexOf("Owner") >= 0 || roles.indexOf("Mod") >=0) {
+                        if (text.indexOf("!delquote") == 0 && isMod(roles)) {
                             var qdText = text.replace('!delquote ', '');
                             var qdSpltText = qdText.split(' ');
                             var qdTiText = qdSpltText.shift();
@@ -119,7 +113,7 @@ function getChatJoin(channelID, userID) {
                         }
 
                         // Adds a quote to the DB
-                        if (text.indexOf("!addquote") == 0 && roles.indexOf("Owner") >= 0 || roles.indexOf("Mod") >= 0) {
+                        if (text.indexOf("!addquote") == 0 && isMod(roles)) {
                             var qaText = text.replace('!addquote ', '');
                             var qaSpltText = qaText.split(' ');
                             var qaTiText = qaSpltText.shift();
@@ -227,6 +221,14 @@ function addCom(chanID, com, res) {
         db.run("INSERT INTO 'commands' VALUES(?, ?, ?)", [chanID, com, res]);
         sendMsg("Command " + com + " added!");
     });
+}
+
+function isMod(ranks) {
+    if(ranks.indexOf("Mod") >= 0 || ranks.indexOf("Owner") >= 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function loginBot(username, password) {
