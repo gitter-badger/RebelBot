@@ -22,12 +22,12 @@
             </div>
         </nav>
 
-        <table class="striped" id="comTable">
+        <table class="striped" id="quoTable">
             <thead>
-                <th data-field="comName">
-                    Command
+                <th data-field="quoID">
+                    ID
                 </th>
-                <th data-field="comRes">
+                <th data-field="quoText">
                     Response
                 </th>
             </thead>
@@ -38,22 +38,23 @@
             var gui = require("nw.gui");
             var db = new sqlite.Database(gui.App.dataPath + "/db.sqlite3");
 
-            var table = document.getElementById("comTable");
+            var table = document.getElementById("quoTable");
             var tRow = table.rows.length;
+
 
             if(table == undefined) console.log("table doesn't exist");
 
-            db.each("SELECT name, response FROM commands", function(err, row){
+            db.each("SELECT ID, res FROM quotes", function(err, row){
                 console.log(row);
                 var htmRow = table.insertRow(tRow);
                 var cell1 = htmRow.insertCell(0);
                 var cell2 = htmRow.insertCell(1);
-                cell1.innerHTML = row.name;
-                cell2.innerHTML = row.response;
+                cell1.innerHTML = row.ID;
+                cell2.innerHTML = row.res;
             });
 
-            function deleteCom(name) {
-                db.run("DELETE FROM commands where name = ?", [name]);
+            function deleteQuo(ID) {
+                db.run("DELETE FROM quotes where id = ?", [ID]);
             }
         </script>
         <script src="./node/index.js"></script>

@@ -97,8 +97,6 @@ function getChatJoin(channelID, userID) {
                                 addCom(channelID, tiText2, allTheText);
                             }
 
-
-
                             console.log("[TEST]: " + tiText);
                             console.log("[TEST]: " + allTheText);
                         }
@@ -125,8 +123,9 @@ function getChatJoin(channelID, userID) {
 
                         // Adds a quote to the DB
                         if (text.indexOf("!addquote") == 0 && roles.indexOf("Owner") >= 0 || roles.indexOf("Mod") >= 0) {
-                            console.log(qAllTheText);
-                            addQuote(channelID, qaAllTheText);
+                            console.log(qaTiText);
+
+                            addQuote(channelID, qaTiText);
                         }
 
                         // Grabs a quote from DB
@@ -160,7 +159,7 @@ function getChatJoin(channelID, userID) {
                 });
 
             }
-            console.log("[getChatJoin]: " + auth);
+            // console.log("[getChatJoin]: " + auth);
         });
 }
 
@@ -231,7 +230,7 @@ function loginBot(username, password) {
         jar: true
     },
         function (err, res, body) {
-            console.log("[loginBot]: " + body);
+            // console.log("[loginBot]: " + body);
             getChatJoin(config.beam.chatID, config.beam.userID);
         });
 }
