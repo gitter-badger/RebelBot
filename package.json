@@ -1,6 +1,6 @@
 {
   "name": "rebelbot-beam",
-  "main": "index.html",
+  "main": "test.html",
   "app_name": "Rebelbot",
   "dependencies": {
     "bluebird": "^2.9.34",

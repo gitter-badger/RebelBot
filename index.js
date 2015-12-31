@@ -1,4 +1,4 @@
-var promise = require('bluebird')
+var promise = require('bluebird');
 var BeamSocket = require('./node/beam/ws');
 var request = require('request');
 var _ = require("lodash");
@@ -8,7 +8,6 @@ var gui = require('nw.gui');
 
 var db = new sqlite.Database(gui.App.dataPath + '/db.sqlite3');
 var config = require('./node/config');
-console.log("[TESTINGSHIT]: " + gui.App.dataPath);
 
 var auth;
 var endpoints = null;
@@ -16,6 +15,15 @@ var apiURL = "https://beam.pro/api/v1";
 var socket;
 
 var urC = new urban.Client();
+
+// Modifying a object you don't own is bad, but I did it anyway.
+String.prototype.has = function(str) {
+    if (this.indexOf(str) != -1) {
+        return true;
+    } else {
+        return false;
+    }
+};
 
 // Giant function that handles chat joining and messages.
 function getChatJoin(channelID, userID) {
@@ -50,13 +58,17 @@ function getChatJoin(channelID, userID) {
                                 text += component.text;
                                 break;
                             case 'link':
-                                text += component.text;
+                                if (isMod(roles)) {
+                                    text += component.text;
+                                } else {
+                                    banUser(data.user_name);
+                                }
                                 break;
                         }
                     });
                     if (text.indexOf("!") == 0) {
                         // Urban command
-                        if (text.indexOf("!urban") == 0) {
+                        if (text.indexOf("!urban") == 0 && isMod(roles)) {
                             var urText = text.replace('!urban ', '');
                             urC.getTerm({ term: urText }, function(err, def){
                                 if (err) {
@@ -87,8 +99,8 @@ function getChatJoin(channelID, userID) {
                                 addCom(channelID, tiText2, allTheText);
                             }
 
-                            console.log("[TEST]: " + tiText);
-                            console.log("[TEST]: " + allTheText);
+                            log("!addcom", "[TEST]: " + tiText, false);
+                            log("!addcom", "[TEST]: " + allTheText, false);
                         }
 
                         if (text.indexOf("!delcom") == 0 && isMod(roles)) {
@@ -136,7 +148,7 @@ function getChatJoin(channelID, userID) {
                             console.log(qText);
                             db.get("SELECT res FROM quotes WHERE ID = ? AND chan = ?", [qText, channelID], function(err, row){
                                 if(err){
-                                    console.log(err);
+                                    log("!quote", err, true);
                                     sendMsg("There was ann error getting that quote");
                                 } else {
                                     sendMsg(row.res);
@@ -149,10 +161,15 @@ function getChatJoin(channelID, userID) {
                         text.indexOf("!ping") != 0) {
                             db.get("SELECT response FROM commands WHERE chanID = ? AND name = ?", [channelID, text], function (err, row) {
                                 if (err || row == undefined) {
-                                    console.log(err)
+                                    log("getcom", err, true);
                                     sendMsg("There was an error getting that command or that command doesn't exist");
                                 } else {
-                                    sendMsg(row.response);
+                                    var msgString = row.response;
+                                    if (msgString.has("%username%") == true) {
+                                        sendMsg(msgString.replace("%username%", data.user_name));
+                                    } else {
+                                        sendMsg(msgString);
+                                    }
                                 }
                             });
                         }
@@ -180,8 +197,7 @@ function banUser(username, chatID, uID) {
         function (err, res, body) {
             console.log(username);
             console.log(body);
-        }
-        );
+        });
 }
 
 function sendMsg(msg) {
@@ -231,6 +247,22 @@ function isMod(ranks) {
     }
 }
 
+function log(srcFunc, txt, isError) {
+    if (srcFunc == null) {
+        console.log(txt);
+    } else {
+        console.log("[" + srcFunc + "]: " + txt);
+    }
+    
+    if (txt == null) {
+        console.log("[" + "log" + "]: TXT PARAMETER NULL.");
+    }
+    
+    if (txt != null && isError == true && srcFunc != null) {
+        console.log("[ERROR]: " + "[" + srcFunc + "]: " + txt);
+    }
+}
+
 function loginBot(username, password) {
     request({
         method: "POST",
@@ -250,9 +282,9 @@ function loginBot(username, password) {
 function logoutBot() {
     if(socket.isConnected) {
         socket.close();
-        console.log("[logoutBot]: Bot is now disconnected!");
+        log("logoutBot", "Bot is now disconnected!", false);
     } else {
-        console.log("[logoutBot]: Bot isn't connected!");
+        console.log("logoutBot", "Bot isn't connected!", true);
     }
 }
 
@@ -264,7 +296,7 @@ function restartBot(username, password) {
 }
 
 process.on('uncaughtException', function(err) {
-  console.log('Caught exception: ' + err);
+  log('Caught exception: ' + err);
 });
 
 

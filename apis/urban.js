@@ -21,7 +21,7 @@ Client.prototype.getTerm = function(term, cb){
         } else {
             var ex = null;
 
-            try{
+            try {
                 body = JSON.parse(body);
             } catch(err) {
                 ex = err
