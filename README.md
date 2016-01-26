@@ -1,5 +1,6 @@
 # Rebelbot
-Rebelbot is a beam.pro bot made in Node.js and will have a UI with NW.js soon(TM).
+Rebelbot is a beam.pro bot made in Node.js and will have a UI with Express soon(TM). Keep track of new features on [Trello](https://trello.com/b/2E3troaD) 
+
 
 # Installation
 To install in it's current state do the following:
