@@ -8,7 +8,9 @@
 /typings/node/node.d.ts
 /typings/lodash/lodash.d.ts
 /typings/form-data/form-data.d.ts
-*.sqlite3
+db.sqlite3
 /db.sqlite3
 /config.js
 .vscode/
+config.json
+configtest.json

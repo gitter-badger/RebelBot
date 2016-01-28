@@ -1,18 +1,22 @@
+# In development, there will be lots of bugs!
+
 # Rebelbot
-Rebelbot is a beam.pro bot made in Node.js and will have a UI with NW.js soon(TM).
+Rebelbot is a beam.pro bot made in Node.js and will have a UI with Express.
 
 # Installation
-To install in it's current state do the following:
-```
-git clone https://github.com/ripbandit/RebelBot.git
-Download NW.JS
-drag the RebelBot folder to the NW.JS executable.
-```
+1. download the .zip of this repository
+2. download and install [node.js](https://nodejs.org/dist/v4.2.6/node-v4.2.6-x64.msi)
+3. rename Defdb.sqlite3 to db.sqlite3
+4. rename defconfig.js to config.js
+5. fill out the config.js with your bots details.
+6. run start.bat or start.sh(If on mac or linux)
 
 # Features
 - Working Beam chat socket implementation.
 - Commands
 - Quotes
+- WebUI
+- Bans
 
 # Contributing
 To contribute just send in a pull request, guidelines for contributing are:
