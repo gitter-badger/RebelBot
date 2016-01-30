@@ -1,1 +1,1 @@
-node index.js
+start %COMSPEC% /k node index.js

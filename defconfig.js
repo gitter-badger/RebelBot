@@ -1,3 +1,4 @@
+var config = {};
 // DO NOT TOUCH
 config.beam = {};
 // DO NOT TOUCH
