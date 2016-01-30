@@ -1,12 +1,7 @@
 # In Alpha, there will be bugs!
 
 # Rebelbot
-<<<<<<< HEAD
-Rebelbot is a beam.pro bot made in Node.js and will have a UI with Express soon(TM). Keep track of new features on [Trello](https://trello.com/b/2E3troaD) 
-
-=======
-Rebelbot is a beam.pro bot made in Node.js and will have a UI with Express.
->>>>>>> rebelbot/dev-express
+Rebelbot is a beam.pro bot made in Node.js and will have a UI with Express soon(TM). Keep track of new features on [Trello](https://trello.com/b/2E3troaD)
 
 # Installation
 1. download the .zip of this repository
