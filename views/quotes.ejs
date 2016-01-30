@@ -1,0 +1,64 @@
+<!--
+Copyright 2015 Ripbandit, LLC.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+!-->
+
+<html>
+    <head>
+        <title>
+            Quotes - Rebelbot
+        </title>
+        <link href="/ripds.css">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/quotes">Quotes</a>
+                </li>
+                <li>
+                    <a href="/commands">Commands</a>
+                </li>
+            </ul>
+        </nav>
+        <table>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Quote
+                </th>
+            </tr>
+            <% quotes.forEach(function(key) { %>
+                <tr>
+                    <td>
+                        <%- key.ID %>
+                    </td>
+                    <td>
+                        <%- key.res %>
+                    </td>
+                    <td>
+                        <form method="post" action="/papi/quotes/delete/<%=key.ID%>">
+                            <input type="submit" name="delete" value="delete">
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </table>
+    </body>
+</html>

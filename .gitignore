@@ -3,3 +3,14 @@
 # Example .gitignore files: https://github.com/github/gitignore
 /bower_components/
 /node_modules/
+/typings/request/request.d.ts
+/typings/bluebird/bluebird.d.ts
+/typings/node/node.d.ts
+/typings/lodash/lodash.d.ts
+/typings/form-data/form-data.d.ts
+db.sqlite3
+/db.sqlite3
+/config.js
+.vscode/
+config.json
+configtest.json
