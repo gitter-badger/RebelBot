@@ -1,22 +1,23 @@
-# In development, there will be lots of bugs!
+# In Alpha, there will be bugs!
 
 # Rebelbot
 Rebelbot is a beam.pro bot made in Node.js and will have a UI with Express.
 
 # Installation
 1. download the .zip of this repository
-2. download and install [node.js](https://nodejs.org/dist/v4.2.6/node-v4.2.6-x64.msi)
-3. rename Defdb.sqlite3 to db.sqlite3
-4. rename defconfig.js to config.js
-5. fill out the config.js with your bots details.
-6. run start.bat or start.sh(If on mac or linux)
+2. download and install Node.JS LTS
+3. run install.bat or install.sh
+4. rename Defdb.sqlite3 to db.sqlite3
+5. rename defconfig.js to config.js
+6. fill out the config.js with your bots details.
+7. run start.bat or start.sh(If on mac or linux)
+8. go to localhost:51305.
 
 # Features
-- Working Beam chat socket implementation.
 - Commands
 - Quotes
-- WebUI
-- Bans
+- Urban integration
+- Web UI
 
 # Contributing
 To contribute just send in a pull request, guidelines for contributing are:

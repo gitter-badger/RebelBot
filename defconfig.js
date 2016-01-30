@@ -1,4 +1,6 @@
+// DO NOT TOUCH
 config.beam = {};
+// DO NOT TOUCH
 config.web = {};
 
 // beam username of bot
@@ -20,4 +22,5 @@ config.web.sendChange = true;
 // IP of bot(If you don't know what this is, leave it.)
 config.web.IP = "0.0.0.0";
 
+// DO NOT TOUCH
 module.exports = config;
