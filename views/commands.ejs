@@ -19,7 +19,7 @@ limitations under the License.
         <title>
             Quotes - Rebelbot
         </title>
-        <link href="/css/ripds.css">
+        <link rel="stylesheet" href="/css/ripds.css">
     </head>
     <body>
         <nav>
@@ -52,7 +52,7 @@ limitations under the License.
                     </td>
                     <td>
                         <form method="post" action="/papi/commands/delete/<%=key.name%>">
-                            <input type="submit" name="delete" value="delete">
+                            <input type="submit" name="delete" value="delete" class="red">
                         </form>
                     </td>
                 </tr>
@@ -61,7 +61,7 @@ limitations under the License.
         <form method="post" action="/papi/commands/add">
             <input name="name">
             <input name="response">
-            <input type="submit" value="submit">
+            <input type="submit" value="submit" class="green">
         </form>
     </body>
 </html>

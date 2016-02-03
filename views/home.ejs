@@ -19,7 +19,7 @@ limitations under the License.
 <html>
     <head>
         <title>Home - Rebelbot</title>
-        <link href="/css/ripds.css">
+        <link rel="stylesheet" href="/css/ripds.css">
     </head>
     <body>
         <nav>
@@ -39,10 +39,10 @@ limitations under the License.
             <h1>Bot is down.</h1>
         <% } %>
         <form method="get" action="/papi/start"/>
-            <input type="submit" name="start" value="start">
+            <input type="submit" name="start" value="start" class="green">
         </form>
         <form method="get" action="/papi/stop">
-            <input type="submit" name="stop" value="stop">
+            <input type="submit" name="stop" value="stop" class="red">
         </form>
     </body>
 </html>

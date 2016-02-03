@@ -90,7 +90,72 @@ button.blue.lighten-2:hover {
     background-color: rgb(0, 88, 232);
 }
 
+button.red:hover {
+    background-color: rgb(181, 0, 0);
+}
+
+button.red.lighten-1:hover {
+    background-color: background-color: rgb(207, 0, 0);
+}
+
+button.red.lighten-2:hover {
+    background-color: background-color: rgb(231, 0, 0);
+}
+
 button.orange:hover {
+    background-color: rgb(255, 96, 38);
+}
+
+input[type="submit"] {
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border: 0;
+    color: rgb(255, 255, 255);
+}
+
+input[type="submit"]:hover {
+    background-color: rgb(51, 51, 51);
+}
+
+input[type="submit"].green:hover {
+    background-color: rgb(12, 181, 0);
+}
+
+input[type="submit"].green.lighten-1:hover {
+    background-color: rgb(13, 206, 0);
+}
+
+input[type="submit"].green.lighten-2:hover {
+    background-color: rgb(15, 232, 0);
+}
+
+input[type="submit"].blue:hover {
+    background-color: rgb(0, 69, 181);
+}
+
+input[type="submit"].blue.lighten-1:hover {
+    background-color: rgb(0, 79, 206);
+}
+
+input[type="submit"].blue.lighten-2:hover {
+    background-color: rgb(0, 88, 232);
+}
+
+input[type="submit"].red:hover {
+    background-color: rgb(181, 0, 0);
+}
+
+input[type="submit"].red.lighten-1:hover {
+    background-color: background-color: rgb(207, 0, 0);
+}
+
+input[type="submit"].red.lighten-2:hover {
+    background-color: background-color: rgb(231, 0, 0);
+}
+
+input[type="submit"].orange:hover {
     background-color: rgb(255, 96, 38);
 }
 
@@ -117,6 +182,18 @@ button.orange:hover {
 
 .blue.lighten-2 {
     background-color: rgb(0, 79, 206);
+}
+
+.red {
+    background-color: rgb(148, 5, 5);
+}
+
+.red.lighten-1 {
+    background-color: rgb(181, 0, 0);
+}
+
+.red.lighten-2 {
+    background-color: rgb(207, 0, 0);
 }
 
 .orange {
