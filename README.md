@@ -1,5 +1,7 @@
 # In Alpha, there will be bugs!
 
+[![Join the chat at https://gitter.im/ripbandit/RebelBot](https://badges.gitter.im/ripbandit/RebelBot.svg)](https://gitter.im/ripbandit/RebelBot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 # Rebelbot
 Rebelbot is a beam.pro bot made in Node.js and will have a UI with Express soon(TM). Keep track of new features on [Trello](https://trello.com/b/2E3troaD)
 
